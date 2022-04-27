@@ -1,0 +1,19 @@
+function solution(lottos, win_nums) {
+    const rank = {};
+    for(let i=0;i<7;i++){
+        rank[i]=7-i;
+    }
+    rank[0]=6;
+
+    // 자신의 번호가 결과와 몇개 맞는지 확인
+    let cntUndefined = 0 ;
+    const cntCorrect=lottos.reduce((acc,cur)=>{
+        if (cur===0) cntUndefined+=1;
+        return win_nums.includes(cur) ? acc+1 : acc;
+    },0);
+
+    const [minCorrect,maxCorrect] = [cntCorrect,cntCorrect+cntUndefined];
+    const answer= [rank[maxCorrect],rank[minCorrect]];
+
+    return answer;
+}
